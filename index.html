@@ -179,7 +179,7 @@ flex-direction:column;
 <option value="vent">呼吸器</option>
 </select>
 
-<div id="nppvMachineArea" style="display:block;margin-top:10px;">
+<div id="nppvMachineArea" style="display:none;margin-top:10px;">
 <label>NPPV機種選択</label>
 <select id="nppvMachine" onchange="changeNPPVMachine()">
 <option value="v60">V60</option>
@@ -303,6 +303,32 @@ el.classList.remove("inputHighlight")
 document.getElementById(id).focus()
 document.getElementById(id).classList.add("inputHighlight")
 }
+
+const mode=document.getElementById("mode")
+
+mode.addEventListener("change",()=>{
+
+// 通常酸素
+const isNormal = mode.value==="normal"
+document.getElementById("normalFields").style.display =
+isNormal ? "block" : "none"
+
+// NPPV
+const isNPPV = mode.value==="nppv"
+document.getElementById("nppvMachineArea").style.display =
+isNPPV ? "block" : "none"
+
+document.getElementById("nppvFields").style.display =
+isNPPV ? "block" : "none"
+
+// 呼吸器
+const isVent = mode.value==="vent"
+document.getElementById("ventFields").style.display =
+isVent ? "block" : "none"
+
+})
+
+mode.dispatchEvent(new Event("change"))
 
 function calc(){
 alert('計算動作サンプル')
