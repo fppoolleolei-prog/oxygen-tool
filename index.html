@@ -3,164 +3,217 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>酸素ボンベ計算ツール</title>
 
 <style>
-body{
-font-family:Arial;
-margin:0;
-padding:18px;
-font-size:18px;
-background:#f4f7fb;
+:root{
+  --main:#1976d2;
+  --safe:#2e7d32;
+  --warn:#d64545;
+  --card:#ffffff;
+  --bg:#eef4fb;
 }
 
-.container{max-width:980px;margin:auto}
+*{
+  box-sizing:border-box;
+}
+
+body{
+  margin:0;
+  padding:20px;
+  font-family:"Hiragino Sans","Yu Gothic",sans-serif;
+  background:linear-gradient(180deg,#edf5ff,#dfeeff);
+  color:#222;
+}
+
+.container{
+  max-width:620px;
+  margin:auto;
+}
 
 .card{
-background:#fff;
-border-radius:16px;
-padding:20px;
-box-shadow:0 6px 18px rgba(0,0,0,0.08)
+  background:var(--card);
+  border-radius:24px;
+  padding:24px;
+  box-shadow:0 10px 30px rgba(0,0,0,0.12);
 }
 
-h1{font-size:24px;margin-bottom:14px}
-
-#mode{font-size:20px;font-weight:bold}
+h1{
+  margin-top:0;
+  margin-bottom:20px;
+  font-size:30px;
+  text-align:center;
+  color:var(--main);
+}
 
 label{
-display:block;
-margin-top:14px;
-font-weight:bold;
-font-size:18px;
+  display:block;
+  margin-top:18px;
+  margin-bottom:6px;
+  font-size:18px;
+  font-weight:bold;
+}
+
+input,
+select{
+  width:100%;
+  padding:14px;
+  border-radius:14px;
+  border:1px solid #cfd8dc;
+  font-size:18px;
+  background:#fff;
+}
+
+input:focus,
+select:focus{
+  outline:none;
+  border-color:var(--main);
+  box-shadow:0 0 0 4px rgba(25,118,210,0.15);
 }
 
 .inputRow{
-display:flex;
-align-items:center;
-gap:8px
+  display:flex;
+  align-items:center;
+  gap:12px;
 }
 
-.inputRow input{flex:0.7}
-.inputRow img{max-height:100%;}
-
-.pressureImg{width:150px;height:auto;}
-.flowImg{width:auto;height:180px;}
-
-input,select{
-width:100%;
-padding:14px;
-border-radius:10px;
-border:1px solid #ccc;
-margin-top:6px;
-font-size:18px;
-box-sizing:border-box;
+.inputRow input{
+  flex:1;
 }
 
-button{
-padding:16px;
-border:none;
-border-radius:14px;
-font-size:18px;
+.pressureImg{
+  width:130px;
+  height:auto;
 }
 
-.calc{
-background:#43a047;
-color:#fff;
-width:100%;
-margin-top:20px;
-font-size:20px;
+.flowImg{
+  width:auto;
+  height:170px;
 }
 
 .quickBtns{
-display:flex;
-gap:10px;
-margin-top:12px;
+  display:flex;
+  gap:10px;
+  margin-top:14px;
 }
 
 .quickBtns button{
-flex:1;
-background:#1976d2;
-color:#fff;
-font-weight:bold;
-padding:16px;
+  flex:1;
+  border:none;
+  border-radius:14px;
+  background:var(--main);
+  color:white;
+  padding:14px;
+  font-size:16px;
+  font-weight:bold;
+  cursor:pointer;
+  transition:0.2s;
+}
+
+.quickBtns button:hover{
+  transform:translateY(-2px);
+  opacity:0.95;
+}
+
+.calc{
+  width:100%;
+  margin-top:24px;
+  padding:18px;
+  border:none;
+  border-radius:18px;
+  background:#43a047;
+  color:white;
+  font-size:22px;
+  font-weight:bold;
+  cursor:pointer;
+  transition:0.2s;
+}
+
+.calc:hover{
+  transform:translateY(-2px);
+  opacity:0.95;
+}
+
+.note{
+  margin-top:10px;
+  font-size:16px;
+  color:#555;
+}
+
+.small{
+  font-size:13px;
+  font-weight:normal;
 }
 
 .result{
-margin-top:16px;
-padding:16px;
-background:#f1f6ff;
-border-radius:12px;
-font-size:20px;
+  margin-top:24px;
+  padding:20px;
+  border-radius:18px;
+  background:#f5f9ff;
+  border:2px solid #d7e7ff;
+  text-align:center;
 }
 
-.warn{color:#d64545;font-weight:bold}
-.safe{color:#2e7d32;font-weight:bold}
-.note{font-size:16px;color:#333;margin-top:8px;font-weight:bold}
-.small{font-size:14px;font-weight:normal}
-
-/* NPPV左右レイアウト */
-.nppvLayout{
-display:flex;
-gap:18px;
-align-items:flex-start;
-margin-top:12px;
+.resultTime{
+  font-size:38px;
+  font-weight:bold;
+  color:#0d47a1;
 }
 
-.nppvLeft{
-flex:1;
-min-width:260px;
+.resultFlow{
+  margin-top:10px;
+  font-size:20px;
 }
 
-.nppvRight{
-flex:1;
+.warn{
+  margin-top:16px;
+  color:var(--warn);
+  font-size:22px;
+  font-weight:bold;
 }
 
-/* 画像 */
-.screenWrap{
-position:relative;
-margin-top:10px;
+.safe{
+  margin-top:16px;
+  color:var(--safe);
+  font-size:22px;
+  font-weight:bold;
 }
 
-.screenImg{
-width:100%;
-border-radius:14px;
-border:2px solid #ccc;
+.footer{
+  margin-top:20px;
+  text-align:center;
+  font-size:14px;
+  color:#777;
 }
 
-.hotspot{
-position:absolute;
-border:4px solid;
-border-radius:12px;
-background:rgba(255,255,255,0.05);
-cursor:pointer;
-}
+@media(max-width:600px){
 
-.yellow{border-color:#ffe600}
-.green{border-color:#00d26a}
-.red{border-color:#ff3b30}
+  body{
+    padding:12px;
+  }
 
-.inputHighlight{
-background:#e8f2ff;
-border:3px solid #1976d2 !important;
-}
+  .card{
+    padding:18px;
+  }
 
-/* 入力欄カラー */
-#fio2{
-border-left:8px solid #ff3b30;
-}
+  h1{
+    font-size:24px;
+  }
 
-#totalFlow{
-border-left:8px solid #ffe600;
-}
+  .inputRow{
+    flex-direction:column;
+  }
 
-#leak{
-border-left:8px solid #00d26a;
-}
+  .pressureImg,
+  .flowImg{
+    max-width:100%;
+    height:auto;
+  }
 
-@media(max-width:700px){
-.nppvLayout{
-flex-direction:column;
-}
+  .quickBtns{
+    flex-direction:column;
+  }
 }
 </style>
 </head>
@@ -168,171 +221,242 @@ flex-direction:column;
 <body>
 
 <div class="container">
-<div class="card">
 
-<h1>酸素ボンベ計算ツール</h1>
+  <div class="card">
 
-<label>モード</label>
-<select id="mode">
-<option value="normal">通常酸素</option>
-<option value="nppv" selected>NPPV(バイパップ)</option>
-<option value="vent">呼吸器</option>
-</select>
+    <h1>酸素ボンベ計算ツール</h1>
 
-<div id="nppvMachineArea" style="display:none;margin-top:10px;">
-<label>NPPV機種選択</label>
-<select id="nppvMachine" onchange="changeNPPVMachine()">
-<option value="v60">V60</option>
-<option value="nkv">NKV</option>
-</select>
-</div>
+    <label>モード</label>
 
-<label>ボンベ圧 (MPa)</label>
-<div class="inputRow">
-<input id="pressure" type="number" value="10">
-<img src="https://dummyimage.com/150x150/eeeeee/555555&text=Pressure" class="pressureImg">
-</div>
+    <select id="mode">
+      <option value="normal">通常酸素</option>
+      <option value="nppv">NPPV（バイパップ）</option>
+      <option value="vent">呼吸器</option>
+    </select>
 
-<div class="quickBtns">
-<button type="button">14.7MPa</button>
-<button type="button">10MPa</button>
-<button type="button">5MPa</button>
-</div>
+    <label>ボンベ圧（MPa）</label>
 
-<div class="note">＊酸素ボンベの満タンは14.7MPaです</div>
+    <div class="inputRow">
+      <input id="pressure" type="number" placeholder="例：10">
+      <img src="oxygen/pressuregauge.png" alt="圧力計" class="pressureImg">
+    </div>
 
-<div id="nppvFields">
+    <div class="quickBtns">
+      <button onclick="setPressureAndCalc(14.7)">
+        14.7MPa<br>
+        <span class="small">（満タン）</span>
+      </button>
 
+      <button onclick="setPressureAndCalc(10)">
+        10MPa
+      </button>
 
+      <button onclick="setPressureAndCalc(5)">
+        5MPa
+      </button>
+    </div>
 
-<div class="nppvLayout">
+    <div class="note">
+      ※ 酸素ボンベの満タンは14.7MPaです
+    </div>
 
-<!-- 左：入力 -->
-<div class="nppvLeft">
+    <!-- 通常酸素 -->
+    <div id="normalFields">
 
-<label>FiO2 (%)</label>
-<input id="fio2" type="number" value="60">
+      <label>流量（L/min）</label>
 
-<label>分時換気量 (L/min)</label>
-<input id="totalFlow" type="number" value="8.8">
+      <div class="inputRow">
+        <input id="flow" type="number" placeholder="例：3">
+        <img src="oxygen/flowmeter.png" alt="流量計" class="flowImg">
+      </div>
 
-<label>リーク量 (L/min)</label>
-<input id="leak" type="number" value="20">
+    </div>
 
-</div>
+    <!-- NPPV -->
+    <div id="nppvFields" style="display:none">
 
-<!-- 右：画像 -->
-<div class="nppvRight">
+      <label>FiO2（%）</label>
+      <input id="fio2" type="number" placeholder="例：60">
 
-<div class="note">
-画像の色枠をタップすると入力欄へ移動します
-</div>
+      <label>分時換気量（L/min）</label>
+      <input id="totalFlow" type="number" placeholder="例：6">
 
-<!-- V60 -->
-<div class="screenWrap" id="v60Wrap">
-<img src="/mnt/data/V60丸.png" class="screenImg">
+      <label>リーク量（L/min）</label>
+      <input id="leak" type="number" placeholder="未入力時は20">
 
-<button class="hotspot yellow"
-style="top:21%;left:3%;width:22%;height:18%;"
-onclick="focusInput('totalFlow')"></button>
+    </div>
 
-<button class="hotspot green"
-style="top:67%;left:3%;width:23%;height:15%;"
-onclick="focusInput('leak')"></button>
+    <!-- 呼吸器 -->
+    <div id="ventFields" style="display:none">
 
-<button class="hotspot red"
-style="bottom:1%;right:1%;width:24%;height:14%;"
-onclick="focusInput('fio2')"></button>
-</div>
+      <label>FiO2（%）</label>
+      <input id="fio2_v" type="number" placeholder="例：60">
 
-<!-- NKV -->
-<div class="screenWrap" id="nkvWrap" style="display:none">
-<img src="/mnt/data/NKV丸.png" class="screenImg">
+      <label>分時換気量（L/min）</label>
+      <input id="mv_v" type="number" placeholder="例：8">
 
-<button class="hotspot yellow"
-style="top:10%;left:48%;width:18%;height:13%;"
-onclick="focusInput('totalFlow')"></button>
+    </div>
 
-<button class="hotspot green"
-style="top:18%;left:2%;width:22%;height:16%;"
-onclick="focusInput('leak')"></button>
+    <button class="calc" onclick="calc()">
+      計算する
+    </button>
 
-<button class="hotspot red"
-style="bottom:8%;left:24%;width:16%;height:15%;"
-onclick="focusInput('fio2')"></button>
-</div>
+    <div id="result" class="result">
+      計算結果がここに表示されます
+    </div>
 
-</div>
-</div>
-</div>
+    <div class="footer">
+      酸素管理サポートツール
+    </div>
 
-<button type="button" class="calc" onclick="calc()">計算</button>
+  </div>
 
-<div id="result" class="result">
-<div style='font-size:32px;font-weight:bold'>残り 34 分</div>
-<div>酸素消費 8.0 L/min</div><br>
-<div class='safe'>✔ 使用可能</div>
-</div>
-
-</div>
 </div>
 
 <script>
-function changeNPPVMachine(){
 
-let machine = document.getElementById("nppvMachine").value
+const CYLINDER_TOTAL = 500;
+const FULL_PRESSURE = 14.7;
+const SAFE = 2;
 
-document.getElementById("v60Wrap").style.display="none"
-document.getElementById("nkvWrap").style.display="none"
+const mode = document.getElementById("mode");
 
-if(machine==="v60"){
-document.getElementById("v60Wrap").style.display="block"
+mode.addEventListener("change", () => {
+
+  document.getElementById("normalFields").style.display =
+    (mode.value === "normal") ? "block" : "none";
+
+  document.getElementById("nppvFields").style.display =
+    (mode.value === "nppv") ? "block" : "none";
+
+  document.getElementById("ventFields").style.display =
+    (mode.value === "vent") ? "block" : "none";
+
+});
+
+function setPressureAndCalc(value){
+
+  document.getElementById("pressure").value = value;
+  calc();
+
 }
 
-if(machine==="nkv"){
-document.getElementById("nkvWrap").style.display="block"
+function getFlow(){
+
+  // 通常酸素
+  if(mode.value === "normal"){
+
+    return parseFloat(
+      document.getElementById("flow").value
+    );
+
+  }
+
+  // NPPV
+  if(mode.value === "nppv"){
+
+    let fio2 =
+      document.getElementById("fio2").value / 100;
+
+    let mv =
+      parseFloat(
+        document.getElementById("totalFlow").value
+      );
+
+    let leakVal =
+      document.getElementById("leak").value;
+
+    let leak =
+      leakVal === "" ? 20 : parseFloat(leakVal);
+
+    return (mv + leak) *
+      ((fio2 - 0.21) / 0.79);
+
+  }
+
+  // 呼吸器
+  if(mode.value === "vent"){
+
+    let fio2 =
+      document.getElementById("fio2_v").value / 100;
+
+    let mv =
+      parseFloat(
+        document.getElementById("mv_v").value
+      );
+
+    return Math.max(
+      0,
+      mv * ((fio2 - 0.21) / 0.79)
+    );
+
+  }
 }
-}
-
-function focusInput(id){
-
-document.querySelectorAll("input").forEach(el=>{
-el.classList.remove("inputHighlight")
-})
-
-document.getElementById(id).focus()
-document.getElementById(id).classList.add("inputHighlight")
-}
-
-const mode=document.getElementById("mode")
-
-mode.addEventListener("change",()=>{
-
-// 通常酸素
-const isNormal = mode.value==="normal"
-document.getElementById("normalFields").style.display =
-isNormal ? "block" : "none"
-
-// NPPV
-const isNPPV = mode.value==="nppv"
-document.getElementById("nppvMachineArea").style.display =
-isNPPV ? "block" : "none"
-
-document.getElementById("nppvFields").style.display =
-isNPPV ? "block" : "none"
-
-// 呼吸器
-const isVent = mode.value==="vent"
-document.getElementById("ventFields").style.display =
-isVent ? "block" : "none"
-
-})
-
-mode.dispatchEvent(new Event("change"))
 
 function calc(){
-alert('計算動作サンプル')
+
+  let pressure =
+    parseFloat(
+      document.getElementById("pressure").value
+    );
+
+  let flow = getFlow();
+
+  if(!pressure || pressure <= SAFE){
+
+    alert("圧を確認してください");
+    return;
+
+  }
+
+  if(!flow || flow <= 0){
+
+    alert("設定を確認してください");
+    return;
+
+  }
+
+  let usable =
+    ((pressure - SAFE) / FULL_PRESSURE)
+    * CYLINDER_TOTAL;
+
+  let time = usable / flow;
+
+  let status = "";
+
+  if(time < 10){
+
+    status =
+      "<div class='warn'>⚠ 危険（10分未満）</div>";
+
+  }
+  else if(time < 20){
+
+    status =
+      "<div class='warn'>⚠ 注意（20分未満）</div>";
+
+  }
+  else{
+
+    status =
+      "<div class='safe'>✔ 使用可能</div>";
+
+  }
+
+  document.getElementById("result").innerHTML =
+    `
+    <div class="resultTime">
+      残り ${Math.round(time)} 分
+    </div>
+
+    <div class="resultFlow">
+      酸素消費 ${flow.toFixed(1)} L/min
+    </div>
+
+    ${status}
+    `;
 }
+
 </script>
 
 </body>
