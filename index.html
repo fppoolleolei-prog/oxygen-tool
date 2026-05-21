@@ -17,7 +17,8 @@
 
 *{box-sizing:border-box;}
 
-body{margin:0;padding:20px;font-family:"Hiragino Sans","Yu Gothic",sans-serif;background:linear-gradient(180deg,#edf5ff,#dfeeff);color:#222;}
+body{margin:0;padding:20px;font-family:"Hiragino Sans","Yu Gothic",sans-serif;
+     background:linear-gradient(180deg,#edf5ff,#dfeeff);color:#222;}
 
 .container{max-width:620px;margin:auto;}
 
@@ -43,7 +44,8 @@ select:focus{outline:none;border-color:var(--main);box-shadow:0 0 0 4px rgba(25,
 
 .quickBtns{display:flex;gap:10px;margin-top:14px;}
 
-.quickBtns button{flex:1;border:none;border-radius:14px;background:var(--main);color:white;padding:14px;font-size:16px;font-weight:bold;cursor:pointer;transition:0.2s;}
+.quickBtns button{flex:1;border:none;border-radius:14px;background:var(--main);
+                  color:white;padding:14px;font-size:16px;font-weight:bold;cursor:pointer;transition:0.2s;}
 
 .quickBtns button:hover{transform:translateY(-2px);opacity:0.95;}
 
@@ -63,54 +65,26 @@ select:focus{outline:none;border-color:var(--main);box-shadow:0 0 0 4px rgba(25,
 
 .resultFlow{margin-top:10px;font-size:20px}
 
-.warn{
-  margin-top:16px;
-  color:var(--warn);
-  font-size:22px;
-  font-weight:bold;
-}
+.warn{margin-top:16px;color:var(--warn);font-size:22px;font-weight:bold;}
 
-.safe{
-  margin-top:16px;
-  color:var(--safe);
-  font-size:22px;
-  font-weight:bold;
-}
+.safe{margin-top:16px;color:var(--safe);font-size:22px;font-weight:bold;}
 
-.footer{
-  margin-top:20px;
-  text-align:center;
-  font-size:14px;
-  color:#777;
-}
+.footer{margin-top:20px;text-align:center;font-size:14px;color:#777;}
 
 @media(max-width:600px){
 
-  body{
-    padding:12px;
-  }
+  body{padding:12px;}
 
-  .card{
-    padding:18px;
-  }
+  .card{padding:18px;}
 
-  h1{
-    font-size:24px;
-  }
+  h1{font-size:24px;}
 
-  .inputRow{
-    flex-direction:column;
-  }
+  .inputRow{flex-direction:column;}
 
   .pressureImg,
-  .flowImg{
-    max-width:100%;
-    height:auto;
-  }
+  .flowImg{max-width:100%;height:auto;}
 
-  .quickBtns{
-    flex-direction:column;
-  }
+  .quickBtns{flex-direction:column;}
 }
 </style>
 </head>
