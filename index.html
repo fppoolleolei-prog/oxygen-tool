@@ -105,6 +105,16 @@ select:focus{outline:none;border-color:var(--main);box-shadow:0 0 0 4px rgba(25,
       <option value="vent">呼吸器</option>
     </select>
 
+    <!-- NPPV機種選択 -->
+<div id="nppvMachineArea" style="margin-top:10px;">
+<label>NPPV機種選択</label>
+<select id="nppvMachine" onchange="changeNPPVMachine()">
+<option value="v60">V60</option>
+<option value="nkv">NKV</option>
+</select>
+</div>
+
+
     <label>ボンベ圧（MPa）</label>
 
     <div class="inputRow">
@@ -144,15 +154,6 @@ select:focus{outline:none;border-color:var(--main);box-shadow:0 0 0 4px rgba(25,
     </div>
 
     <!-- NPPV -->
-    <!-- NPPV機種選択 -->
-<div id="nppvMachineArea" style="margin-top:10px;">
-<label>NPPV機種選択</label>
-<select id="nppvMachine" onchange="changeNPPVMachine()">
-<option value="v60">V60</option>
-<option value="nkv">NKV</option>
-</select>
-</div>
-
 <!-- NPPV入力エリア -->
 <div id="nppvFields">
 
